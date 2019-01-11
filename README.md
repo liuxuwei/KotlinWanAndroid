@@ -1,2 +1,2 @@
 # KotlinWanAndroid
-Kotlin + RxJava + Retrofit 玩安卓客户端
+Kotlin + Mvp + RxJava + Retrofit 玩安卓客户端
