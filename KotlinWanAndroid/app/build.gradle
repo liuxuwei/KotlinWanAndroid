@@ -26,9 +26,25 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation project(path: ':sweetlib')
 
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["eventbus"]
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit2-rxjava2-adapter"]
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["logging-interceptor"]
+    implementation rootProject.ext.dependencies["converter-gson"]
+
+    implementation "org.jetbrains.anko:anko:$anko_version"
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     testImplementation rootProject.ext.dependencies["junit"]
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

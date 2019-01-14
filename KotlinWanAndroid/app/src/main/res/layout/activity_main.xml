@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:id="@+id/rl_main"
+    tools:context=".SplashActivity">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="@dimen/qb_px_250"
+        android:layout_height="@dimen/qb_px_250"
+        android:layout_marginTop="@dimen/qb_px_80"
+        android:src="@mipmap/android_icon"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
+        android:layout_below="@id/iv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:text="玩 Android"
+        android:textColor="#1296db"
+        android:textSize="@dimen/qb_px_60"/>
 
-</LinearLayout>
+</RelativeLayout>
