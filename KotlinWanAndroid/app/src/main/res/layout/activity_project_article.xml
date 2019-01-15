@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.module_project.activity.ProjectAndArticleActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/color_blue"
+            app:titleTextColor="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_menu"
+                    android:layout_width="@dimen/qb_px_25"
+                    android:layout_height="@dimen/qb_px_25"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_menu"/>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="公众号列表"
+                    android:textSize="@dimen/qb_px_15"
+                    android:textColor="#fff"/>
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:elevation="0.5dp"
+            android:id="@+id/tab_navigation"
+            app:tabTextColor="#fff"
+            app:tabMode="scrollable"
+            android:overScrollMode="never"
+            android:background="@color/color_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.NavigationView
+        android:background="@color/color_blue"
+        android:layout_gravity="start"
+        android:id="@+id/rl_drawer_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/qb_px_30"></android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpActivity
+import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.ProjectAndArticleActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.contract.ContractUser
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.presenter.LoginPresenter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
@@ -61,6 +62,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>(),
 
     override fun showLoginSuccess(username: String) {
         hideLoading()
+        ProjectAndArticleActivity.start(getContext())
         toast("Hello $username")
     }
 

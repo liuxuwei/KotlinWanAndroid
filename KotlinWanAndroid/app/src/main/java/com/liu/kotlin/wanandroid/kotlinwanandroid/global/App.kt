@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.res.Configuration
 import android.content.res.Resources
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 
 /**
  * author: liu
@@ -15,6 +17,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Logger.addLogAdapter(AndroidLogAdapter())
 //        user = User(this)
     }
 

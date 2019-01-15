@@ -1,5 +1,7 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.activity
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -20,6 +22,14 @@ class RegisterActivity: BaseMvpActivity<RegisterPresenter,ContractUser.RegisterV
     private val etUserName by bindView<EditText>(R.id.et_username)
     private val etPassWord by bindView<EditText>(R.id.et_password)
     private val etRePassWord by bindView<EditText>(R.id.et_repassword)
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent()
+            intent.setClass(context,RegisterActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
 
     override fun getContentLayoutId(): Int {
         return R.layout.activity_register

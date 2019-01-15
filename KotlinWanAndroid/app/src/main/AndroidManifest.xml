@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.liu.kotlin.wanandroid.kotlinwanandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".global.App"
         android:allowBackup="true"
@@ -14,17 +16,16 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
         <activity android:name=".SplashActivity">
+
+        </activity>
+        <activity android:name=".mvp.module_user.activity.LoginActivity"></activity>
+        <activity android:name=".mvp.module_project.activity.ProjectAndArticleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.module_user.activity.LoginActivity">
-
-        </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

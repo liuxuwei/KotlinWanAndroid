@@ -55,13 +55,14 @@ class ExampleUnitTest {
 
     @Test
     fun apiServiceTest() {
+        Logger.d("执行")
         val retrofitHelper = RetrofitHelper.getInstance()
         retrofitHelper.create(ApiService::class.java)
                 .login("piziliu", "zjk123456")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    Logger.d(it.username)
+                    Logger.d(it.data.username)
                 }
 
     }

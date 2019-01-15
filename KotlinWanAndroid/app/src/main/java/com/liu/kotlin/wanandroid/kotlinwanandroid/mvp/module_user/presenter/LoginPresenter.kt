@@ -30,10 +30,6 @@ class LoginPresenter(val context: Context) : BasePresenter<ContractUser.LoginVie
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     Logger.d(it.data.username)
-                    Logger.d(it.data.password)
-                    Logger.d(it.data.type)
-                    Logger.d(it.data.token)
-                    Logger.d(it.data.id)
                     mRootView.showLoginSuccess(it.data.username!!)
                 }
     }
