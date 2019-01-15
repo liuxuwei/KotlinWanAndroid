@@ -13,11 +13,20 @@ interface ContractUser {
     /*---------------------登录----------------------------*/
     interface LoginView : IView {
 
-        fun showLoginSuccess()
+        fun showLoginSuccess(msg: String)
     }
 
     interface LoginModel : IModel {
         fun login(userName: String, passWord: String)
+    }
+
+    /*------------------------注册--------------------------*/
+    interface RegisterView : IView{
+
+    }
+
+    interface RegisterModel : IModel {
+
     }
 
 

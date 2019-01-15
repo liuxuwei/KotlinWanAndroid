@@ -1,10 +1,11 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.global
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.liu.kotlin.wanandroid.kotlinwanandroid.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 /**
@@ -39,8 +40,14 @@ class RetrofitHelper {
                 .connectTimeout(10,TimeUnit.SECONDS)
                 .readTimeout(10,TimeUnit.SECONDS)
 
+//        if (BuildConfig.DEBUG) {
+//            val interceptor = HttpLoggingInterceptor()
+//            interceptor.level = HttpLoggingInterceptor.Level.BODY
+//            builder.addInterceptor(interceptor)
+//        }
+
         return Retrofit.Builder()
-                .baseUrl(Interfaces.BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .client(builder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

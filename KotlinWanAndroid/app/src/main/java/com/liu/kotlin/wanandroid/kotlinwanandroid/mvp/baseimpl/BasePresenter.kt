@@ -9,7 +9,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.`interface`.IView
  * description
  */
 open class BasePresenter<V: IView>: IPresenter<V> {
-    private lateinit var mRootView: V
+    protected lateinit var mRootView: V
 
     override fun onStart() {
 

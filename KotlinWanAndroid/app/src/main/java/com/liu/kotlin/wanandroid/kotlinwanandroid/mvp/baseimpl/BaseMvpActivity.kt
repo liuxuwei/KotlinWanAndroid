@@ -42,7 +42,7 @@ abstract class BaseMvpActivity<P : IPresenter<V>, V : IView> : BaseActivity(), I
     }
 
     override fun hideLoading() {
-        loadingDialog.cancel()
+        loadingDialog.dismiss()
     }
 
     override fun finishActivity() {

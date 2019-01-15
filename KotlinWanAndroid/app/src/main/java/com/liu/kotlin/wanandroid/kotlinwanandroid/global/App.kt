@@ -3,6 +3,7 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.global
 import android.app.Application
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
 
 /**
  * author: liu
@@ -10,9 +11,11 @@ import android.content.res.Resources
  * 全局Application
  */
 class App : Application() {
+    lateinit var user: User
 
     override fun onCreate() {
         super.onCreate()
+//        user = User(this)
     }
 
     /**

@@ -18,7 +18,8 @@ import org.jetbrains.anko.toast
  * date: 2019/1/14 15:51
  * 登录Activity
  */
-class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>() {
+class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>(),ContractUser.LoginView {
+
     private var exitTime: Long = 0
 
     private val tvRegister by bindView<TextView>(R.id.tv_register)
@@ -46,7 +47,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>() 
     override fun init() {
         btnLogin.setOnClickListener {
             showLoading()
-            toast("登录")
+            mPresenter.login(etUserName.text.toString(),etPassWord.text.toString())
         }
 
         tvRegister.setOnClickListener {
@@ -58,10 +59,15 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>() 
 
     }
 
+    override fun showLoginSuccess(username: String) {
+        hideLoading()
+        toast("Hello $username")
+    }
+
+
+
     override fun onBackPressed() {
-        if (loadingDialog.isShowing) {
-            hideLoading()
-        }
+
         super.onBackPressed()
     }
 

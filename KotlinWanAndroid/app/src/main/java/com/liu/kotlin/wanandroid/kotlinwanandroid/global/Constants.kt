@@ -5,8 +5,8 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.global
  * date: 2019/1/14 16:26
  * description
  */
-object Interfaces {
+object Constants {
 
-    const val BASE_URL = "http://www.wanandroid.com"
+    const val BASE_URL = "http://www.wanandroid.com/"
 
 }
