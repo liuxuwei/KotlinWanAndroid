@@ -1,6 +1,7 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.global
 
 import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseResModel
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Chapters
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
 import io.reactivex.Observable
@@ -21,6 +22,6 @@ interface ApiService {
     @GET("wxarticle/chapters/json")
     fun getChapters() : Observable<BaseResModel<List<Chapters>>>
 
-//    @GET("wxarticle/list/{id}/{page}/json")
-//    fun getArticles(@Path("id") id: String,@Path("page") page: Int) : Observable<>
+    @GET("wxarticle/list/{id}/{page}/json")
+    fun getArticles(@Path("id") id: Int,@Path("page") page: Int) : Observable<BaseResModel<Article>>
 }

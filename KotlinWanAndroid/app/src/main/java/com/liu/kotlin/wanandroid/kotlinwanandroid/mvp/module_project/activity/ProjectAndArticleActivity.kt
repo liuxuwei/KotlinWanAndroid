@@ -16,11 +16,10 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Chapters
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.TabViewPagerAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
-import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.fragment.ArticleFragment
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ProjectAndArticlePresenter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
 
-class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, ContractProjectAndArticle.ProjectAndArticleView>(), ContractProjectAndArticle.ProjectAndArticleView {
+class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, ContractProjectAndArticle.ChapterTypeView>(), ContractProjectAndArticle.ChapterTypeView {
     private val drawParent by bindView<DrawerLayout>(R.id.drawer_parent)
     private val toolbar by bindView<Toolbar>(R.id.toolbar)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
@@ -73,11 +72,10 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
         mChapters = chapterList as MutableList<Chapters>
         var tempList = mutableListOf<Fragment>()
         for (position in chapterList.indices) {
-            tempList.add(ArticleFragment.newInstance())
             tabNavigation.addTab(tabNavigation.newTab())
         }
         fragmentList.addAll(tempList)
-        pageAdapter = TabViewPagerAdapter(supportFragmentManager,fragmentList,mChapters)
+        pageAdapter = TabViewPagerAdapter(supportFragmentManager,mChapters)
         contentViewPager.adapter = pageAdapter
     }
 

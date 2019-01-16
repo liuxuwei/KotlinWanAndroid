@@ -17,7 +17,7 @@
             android:background="@color/color_blue"
             app:titleTextColor="#fff"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="@dimen/qb_px_44">
 
             <RelativeLayout
                 android:layout_width="match_parent"
