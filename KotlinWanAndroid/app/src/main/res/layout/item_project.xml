@@ -17,16 +17,25 @@
         android:textSize="@dimen/qb_px_15" />
 
     <TextView
-        android:layout_below="@id/tv_title"
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_margin="@dimen/qb_px_10"
+        android:text="项目描述：这里是描述大约有三行"
+        android:textColor="#333"
+        android:textSize="@dimen/qb_px_15" />
+
+    <TextView
         android:id="@+id/tv_publish_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/qb_px_15"
+        android:layout_below="@id/tv_description"
         android:layout_marginBottom="@dimen/qb_px_10"
         android:layout_marginRight="@dimen/qb_px_10"
-        android:text="2018-9-27"/>
-
+        android:layout_marginTop="@dimen/qb_px_15"
+        android:text="2018-9-27" />
 
 
     <ImageView
@@ -36,15 +45,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@id/tv_publish_time"
         android:layout_marginLeft="@dimen/qb_px_10"
-        android:src="@mipmap/android_icon"/>
+        android:src="@mipmap/android_icon" />
 
     <TextView
         android:id="@+id/tv_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_icon"
         android:layout_alignTop="@id/tv_publish_time"
         android:layout_marginLeft="@dimen/qb_px_7"
-        android:text="作者：鸿洋"/>
+        android:layout_toRightOf="@id/iv_icon"
+        android:text="作者：鸿洋" />
 
 </RelativeLayout>

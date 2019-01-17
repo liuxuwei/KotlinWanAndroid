@@ -1,16 +1,14 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.global
 
 import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseResModel
-import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
-import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Chapters
-import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.*
 import io.reactivex.Observable
 import retrofit2.http.*
 
 /**
  * author: liu
  * date: 2019/1/15 8:25
- * description
+ * 项目接口
  */
 interface ApiService {
 
@@ -24,4 +22,10 @@ interface ApiService {
 
     @GET("wxarticle/list/{id}/{page}/json")
     fun getArticles(@Path("id") id: Int,@Path("page") page: Int) : Observable<BaseResModel<Article>>
+
+    @GET("project/tree/json")
+    fun getProjectType(): Observable<BaseResModel<List<ProjectType>>>
+
+    @GET("project/list/{page}/json?")
+    fun getProjectList(@Path("page") page: Int,@Query("cid") typeId: Int): Observable<BaseResModel<ProjectItem>>
 }

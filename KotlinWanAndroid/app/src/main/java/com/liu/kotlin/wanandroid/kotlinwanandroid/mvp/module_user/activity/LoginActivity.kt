@@ -67,24 +67,4 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>(),
     }
 
 
-
-    override fun onBackPressed() {
-
-        super.onBackPressed()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                toast("再按一次退出程序")
-                exitTime = System.currentTimeMillis()
-            } else {
-                finishActivity()
-                System.exit(0)
-            }
-            return true
-        }
-        return super.onKeyDown(keyCode, event)
-    }
-
 }

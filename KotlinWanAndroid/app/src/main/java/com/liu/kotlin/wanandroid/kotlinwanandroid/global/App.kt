@@ -15,9 +15,20 @@ import com.orhanobut.logger.Logger
 class App : Application() {
     lateinit var user: User
 
+    companion object {
+        @JvmStatic
+        private lateinit var instance: App
+
+        fun getInstance(): App {
+            return instance
+        }
+    }
+
+
     override fun onCreate() {
         super.onCreate()
         Logger.addLogAdapter(AndroidLogAdapter())
+        instance = this
 //        user = User(this)
     }
 
@@ -28,7 +39,10 @@ class App : Application() {
         val resources = super.getResources()
         val configuration = Configuration()
         configuration.setToDefaults()
-        resources.updateConfiguration(configuration,resources.displayMetrics)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
         return super.getResources()
     }
+
+
+
 }

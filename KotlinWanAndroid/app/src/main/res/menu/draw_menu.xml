@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/article"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_article"
+            android:icon="@drawable/icon_book"
+            android:title="公众号文章" />
+    </group>
+    <group android:id="@+id/project"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_project"
+            android:icon="@drawable/icon_laptop"
+            android:title="开源项目" />
+    </group>
+    <group android:id="@+id/about">
+        <item
+            android:id="@+id/item_about"
+            android:icon="@drawable/icon_contacts"
+            android:title="关于我" />
+    </group>
+</menu>

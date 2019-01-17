@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,31 +12,26 @@ import android.widget.EditText
 import android.widget.TextView
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
-import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
-import com.liu.kotlin.wanandroid.kotlinwanandroid.global.RetrofitHelper
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpFragment
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ArticleAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ArticleFragPresenter
-import com.orhanobut.logger.Logger
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.support.v4.toast
 
 /**
  * author: liu
  * date: 2019/1/15 16:57
- * 文章列表Fragmen
+ * 文章列表Fragment
  */
 class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndArticle.ArticleView>(),ContractProjectAndArticle. ArticleView{
     private lateinit var rcyArticle: RecyclerView
     private lateinit var tvSearchBtn: TextView
     private lateinit var etSearchView: EditText
-    private var mPosition = 0
-    private var chapterId = 0
-    private var page = 1
     private var articleList: MutableList<Article.DatasBean> = mutableListOf()
     private lateinit var articleAdapter: ArticleAdapter
+    private var chapterId = 0
+    private var mPosition = 0
+    private var page = 1
 
     companion object {
         fun newInstance(position: Int, chapterId: Int): ArticleFragment {
@@ -57,7 +51,6 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndA
     override fun init() {
         if (arguments != null) {
             chapterId = arguments!!.getInt("id")
-            Log.d("公众号id","公众号id : $chapterId")
             mPosition = arguments!!.getInt("position")
         }
     }
@@ -83,7 +76,7 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndA
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //todo search article in current chapter
             }
-            true
+            false
         }
     }
 

@@ -10,43 +10,22 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * author: liu
- * date: 2019/1/15 15:29
+ * date: 2019/1/17 9:21
  * description
  */
-class ProjectAndArticlePresenter(val context: Context): BasePresenter<ContractProjectAndArticle.ChapterTypeView>(),ContractProjectAndArticle.ChapterTypeModel {
+class ProjectFragPresenter(val context: Context): BasePresenter<ContractProjectAndArticle.ProjectView>(),ContractProjectAndArticle.ProjectModel {
 
-    /**
-     * 获取项目分类
-     */
-    override fun getProjects() {
+
+    override fun getProjectList(typeId: Int, page: Int) {
         RetrofitHelper.getInstance()
                 .create(ApiService::class.java)
-                .getProjectType()
+                .getProjectList(page,typeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (it.errorCode == 0) {
-                        mRootView.getProjectTypeSuccess(it.data)
+                        mRootView.getProjectListSuccess(it.data.datas!!)
                     }
                 }
     }
-
-    /**
-     * 获取公众号列表
-     */
-    override fun getChapters() {
-        RetrofitHelper.getInstance()
-                .create(ApiService::class.java)
-                .getChapters()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.errorCode == 0) {
-                        mRootView.getChaptersSuccess(it.data)
-                    }
-                }
-    }
-
-
-
 }

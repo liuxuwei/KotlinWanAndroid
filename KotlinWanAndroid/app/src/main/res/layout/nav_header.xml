@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/qb_px_220"
+    android:background="@drawable/android">
+
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Hi: piziliu"
+        android:lines="2"
+        android:textColor="#133"
+        android:textSize="@dimen/qb_px_20" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/qb_px_10"
+        android:layout_marginBottom="@dimen/qb_px_5"
+        android:text="点击登录"
+        android:textColor="#133"
+        android:textSize="@dimen/qb_px_13" />
+
+</RelativeLayout>

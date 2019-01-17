@@ -3,9 +3,12 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.base
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.view.WindowManager
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
 
 /**
@@ -29,6 +32,18 @@ abstract class BaseActivity: AppCompatActivity(){
 
         initView()
         initData()
+        initStatusBar()
+    }
+
+    private fun initStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN and View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.statusBarColor = Color.TRANSPARENT
+            }
+        }
     }
 
     private fun initDialog() {
@@ -54,7 +69,7 @@ abstract class BaseActivity: AppCompatActivity(){
             super.startActivityForResult(intent, requestCode, options)
         }
     }
-
+    
     private var mActivityJumpTag: String? = null
     private var mActivityJumpTime: Long = 0
 
