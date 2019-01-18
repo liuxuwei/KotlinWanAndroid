@@ -48,6 +48,14 @@ interface ContractProjectAndArticle {
         fun getProjectList(typeId: Int,page: Int)
     }
 
+    /*-----------------------详情---------------------*/
+    interface DetailsView : IView {
+
+    }
+
+    interface DetailsModel : IModel {
+
+    }
 
 
 

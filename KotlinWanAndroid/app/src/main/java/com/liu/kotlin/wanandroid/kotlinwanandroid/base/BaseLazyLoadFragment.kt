@@ -48,10 +48,12 @@ abstract class BaseLazyLoadFragment : Fragment() {
 
     private fun initDialog() {       //只有在Activity创建以后才能显示dialog
         loadingDialog = SweetAlertDialog(mContext,SweetAlertDialog.PROGRESS_TYPE)
-        loadingDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        loadingDialog.titleText = "loading"
-        loadingDialog.setCancelable(true)
-        loadingDialog.setCanceledOnTouchOutside(false)
+        loadingDialog.let {
+            it.progressHelper.barColor = Color.parseColor("#A5DC86")
+            it.titleText = "loading"
+            it.setCancelable(true)
+            it.setCanceledOnTouchOutside(false)
+        }
     }
 
     override fun onDestroyView() {

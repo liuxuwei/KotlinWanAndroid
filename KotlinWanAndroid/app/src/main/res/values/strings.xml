@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">KotlinWanAndroid</string>
+    <string name="server_error">服务器开小差啦~</string>
+    <string name="empty_data">咦，没那么多数据啦~</string>
+    <string name="reload">请点击重试</string>
 </resources>

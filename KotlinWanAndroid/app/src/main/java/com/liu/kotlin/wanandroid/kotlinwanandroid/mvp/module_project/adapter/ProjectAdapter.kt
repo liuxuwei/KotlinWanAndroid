@@ -14,17 +14,23 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.ProjectItem
  * date: 2019/1/17 9:52
  * 项目Adapter
  */
-class ProjectAdapter (private val context: Context,private var mProjectList: List<ProjectItem.DatasBean>): RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder
-            = ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_project,parent,false))
+class ProjectAdapter(private val context: Context, private var mProjectList: List<ProjectItem.DatasBean>) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
+    private var mListener: OnItemClickListener? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder = ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_project, parent, false))
 
     override fun getItemCount(): Int = if (mProjectList.isEmpty()) 0 else mProjectList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvTitle.text = mProjectList[position].title
-        holder.tvDesc.text = mProjectList[position].desc
+        holder.tvDesc.text = "项目说明：${mProjectList[position].desc}"
         holder.tvAuthor.text = mProjectList[position].author
         holder.tvPublishTime.text = mProjectList[position].niceDate
+        holder.itemView.setOnClickListener {
+            if (mListener != null) {
+                mListener!!.onItemClick(position,mProjectList[position].link!!)
+            }
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,5 +43,13 @@ class ProjectAdapter (private val context: Context,private var mProjectList: Lis
     fun refreshData(temList: List<ProjectItem.DatasBean>) {
         (mProjectList as MutableList).addAll(temList)
         notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, projectUrl: String)
+    }
+
+    fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
+        this.mListener = itemClickListener
     }
 }

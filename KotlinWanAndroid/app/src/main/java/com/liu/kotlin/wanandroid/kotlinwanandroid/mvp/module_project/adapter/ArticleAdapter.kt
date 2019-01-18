@@ -14,10 +14,10 @@ import org.jetbrains.anko.textResource
 /**
  * author: liu
  * date: 2019/1/16 10:27
- * description
+ * 文章列表Adapter
  */
 class ArticleAdapter(private val context: Context, var articleList: List<Article.DatasBean>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
-
+    private var mListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder = ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_article, p0, false))
 
@@ -27,6 +27,11 @@ class ArticleAdapter(private val context: Context, var articleList: List<Article
         holder.tvTitle.text = articleList[position].title
         holder.tvAuthor.text = articleList[position].author
         holder.tvPublishTime.text = TimeUtil.stampToStrTime(articleList[position].publishTime)
+        holder.itemView.setOnClickListener {
+            if (mListener != null) {
+                mListener!!.onItemClick(position,articleList[position].link!!)
+            }
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,5 +43,13 @@ class ArticleAdapter(private val context: Context, var articleList: List<Article
     fun refreshData(temList: List<Article.DatasBean>) {
         (articleList as MutableList).addAll(temList)
         notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, projectUrl: String)
+    }
+
+    fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
+        this.mListener = itemClickListener
     }
 }

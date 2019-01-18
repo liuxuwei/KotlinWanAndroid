@@ -3,7 +3,11 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.global
 import android.app.Application
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.kingja.loadsir.core.LoadSir
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.EmptyDataCallback
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.ServerErrorCallback
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
@@ -29,6 +33,12 @@ class App : Application() {
         super.onCreate()
         Logger.addLogAdapter(AndroidLogAdapter())
         instance = this
+        LoadSir.beginBuilder()
+                .addCallback(ServerErrorCallback())
+                .addCallback(EmptyDataCallback())
+                .addCallback(LoadingCallback())
+                .setDefaultCallback(LoadingCallback::class.java)
+                .commit()
 //        user = User(this)
     }
 

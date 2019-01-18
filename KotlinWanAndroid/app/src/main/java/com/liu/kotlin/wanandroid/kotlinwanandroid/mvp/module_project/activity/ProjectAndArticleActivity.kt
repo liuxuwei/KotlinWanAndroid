@@ -30,8 +30,6 @@ import com.orhanobut.logger.Logger
 import org.jetbrains.anko.startActivity
 
 class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, ContractProjectAndArticle.ChapterTypeView>(), ContractProjectAndArticle.ChapterTypeView {
-
-
     private val drawParent by bindView<DrawerLayout>(R.id.drawer_parent)
     private val layoutStatusBar by bindView<LinearLayout>(R.id.layout_status_bar)
     private val toolbar by bindView<Toolbar>(R.id.toolbar)
@@ -118,7 +116,6 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
                     it.isChecked =true
                     tvTitle.text = "公众号文章"
                     getChapters()
-                    //todo getArticleList
                 }
                 R.id.item_project -> {
                     it.isChecked = true
@@ -135,19 +132,19 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
     }
 
     private fun getProjectList() {
+        showLoading()
         mPresenter.getProjects()
     }
 
 
     override fun getProjectTypeSuccess(projectTypeList: List<ProjectType>) {
-        Logger.d(projectTypeList[0].name)
-        hideLoading()
         mProjectTypes = projectTypeList as MutableList<ProjectType>
         for (position in projectTypeList.indices) {
             tabNavigation.addTab(tabNavigation.newTab())
         }
         projectPagerAdapter = ProjectPagerAdapter(supportFragmentManager,mProjectTypes)
         contentViewPager.adapter = projectPagerAdapter
+        hideLoading()
     }
 
 

@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
+        android:lineSpacingExtra="@dimen/qb_px_8"
         android:layout_margin="@dimen/qb_px_10"
         android:text="项目描述：这里是描述大约有三行"
         android:textColor="#333"

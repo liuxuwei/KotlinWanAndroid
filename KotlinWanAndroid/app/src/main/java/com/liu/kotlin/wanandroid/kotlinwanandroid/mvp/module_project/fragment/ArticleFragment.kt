@@ -10,12 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpFragment
+import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.DetailsActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ArticleAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ArticleFragPresenter
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -23,12 +27,13 @@ import org.jetbrains.anko.support.v4.toast
  * date: 2019/1/15 16:57
  * 文章列表Fragment
  */
-class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndArticle.ArticleView>(),ContractProjectAndArticle. ArticleView{
+class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAndArticle.ArticleView>(), ContractProjectAndArticle.ArticleView {
     private lateinit var rcyArticle: RecyclerView
     private lateinit var tvSearchBtn: TextView
     private lateinit var etSearchView: EditText
     private var articleList: MutableList<Article.DatasBean> = mutableListOf()
     private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var loadService: LoadService<*>
     private var chapterId = 0
     private var mPosition = 0
     private var page = 1
@@ -53,10 +58,14 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndA
             chapterId = arguments!!.getInt("id")
             mPosition = arguments!!.getInt("position")
         }
+        loadService = LoadSir.getDefault().register(rcyArticle) {
+            loadService.showCallback(LoadingCallback::class.java)
+            getArticleList()
+        }
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?): View {
-        val view = inflater.inflate(R.layout.fragment_article,container,false)
+        val view = inflater.inflate(R.layout.fragment_article, container, false)
         tvSearchBtn = view.findViewById(R.id.tv_btn_search)
         etSearchView = view.findViewById(R.id.et_search)
         rcyArticle = view.findViewById(R.id.rcy_article)
@@ -68,6 +77,14 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndA
     }
 
     private fun setListener() {
+
+        articleAdapter.setOnItemClickListener(object : ArticleAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int, projectUrl: String) {
+                DetailsActivity.start(activity as Context,projectUrl)
+            }
+
+        })
+
         tvSearchBtn.setOnClickListener {
             toast("搜索")
             showLoading()
@@ -86,12 +103,14 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter,ContractProjectAndA
     }
 
     private fun getArticleList() {
-        mPresenter.getArticleList(chapterId,page)
+        loadService.showCallback(LoadingCallback::class.java)
+        mPresenter.getArticleList(chapterId, page)
     }
 
     override fun getArticleListSuccess(dataList: List<Article.DatasBean>) {
         articleList = dataList as MutableList
         articleAdapter.refreshData(articleList)
+        loadService.showSuccess()
         hideLoading()
     }
 }

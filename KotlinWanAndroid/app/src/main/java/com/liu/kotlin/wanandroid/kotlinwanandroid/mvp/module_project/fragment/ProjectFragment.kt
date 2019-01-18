@@ -7,23 +7,27 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.ProjectItem
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpFragment
+import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.DetailsActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ProjectAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ProjectFragPresenter
-import com.orhanobut.logger.Logger
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
 
 /**
  * author: liu
  * date: 2019/1/17 9:21
- * description
+ * 项目列表Fragment
  */
 class ProjectFragment : BaseMvpFragment<ProjectFragPresenter, ContractProjectAndArticle.ProjectView>(), ContractProjectAndArticle.ProjectView {
     private var mPosition = 0
     private var typeId = 0
     private var page = 1
+    private lateinit var loadService: LoadService<*>
     private lateinit var rcyProject: RecyclerView
     private lateinit var projectAdapter: ProjectAdapter
     private var projectList: MutableList<ProjectItem.DatasBean> = mutableListOf()
@@ -49,12 +53,21 @@ class ProjectFragment : BaseMvpFragment<ProjectFragPresenter, ContractProjectAnd
             typeId = arguments!!.getInt("typeId")
             mPosition = arguments!!.getInt("position")
         }
+        loadService = LoadSir.getDefault().register(rcyProject) {
+            loadService.showCallback(LoadingCallback::class.java)
+            getProjectList()
+        }
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?): View {
         val contentView = inflater.inflate(R.layout.fragment_project, container, false)
         rcyProject = contentView.findViewById(R.id.rcy_project)
-        projectAdapter = ProjectAdapter(activity as Context,projectList)
+        projectAdapter = ProjectAdapter(activity as Context, projectList)
+        projectAdapter.setOnItemClickListener(object : ProjectAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int, projectUrl: String) {
+                DetailsActivity.start(context!!,projectUrl)
+            }
+        })
         rcyProject.layoutManager = LinearLayoutManager(activity)
         rcyProject.adapter = projectAdapter
 
@@ -66,11 +79,13 @@ class ProjectFragment : BaseMvpFragment<ProjectFragPresenter, ContractProjectAnd
     }
 
     private fun getProjectList() {
-        mPresenter.getProjectList(typeId,page)
+        loadService.showCallback(LoadingCallback::class.java)
+        mPresenter.getProjectList(typeId, page)
     }
 
     override fun getProjectListSuccess(dataList: List<ProjectItem.DatasBean>) {
         projectList = dataList as MutableList
         projectAdapter.refreshData(projectList)
+        loadService.showSuccess()
     }
 }
