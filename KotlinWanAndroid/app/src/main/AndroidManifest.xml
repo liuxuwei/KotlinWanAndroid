@@ -28,6 +28,7 @@
         </activity>
         <activity android:name=".mvp.module_project.activity.DetailsActivity"></activity>
         <activity android:name=".mvp.module_project.activity.AboutMeActivity"></activity>
+        <activity android:name=".mvp.module_user.activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

@@ -52,7 +52,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initDialog() {
         loadingDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        loadingDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
+        loadingDialog.progressHelper.barColor = Color.parseColor("#5091E6")
         loadingDialog.titleText = "loading"
         loadingDialog.setCancelable(true)
         loadingDialog.setCanceledOnTouchOutside(false)

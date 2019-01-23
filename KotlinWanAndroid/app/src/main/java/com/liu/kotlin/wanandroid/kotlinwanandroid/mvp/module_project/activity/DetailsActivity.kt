@@ -106,8 +106,7 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
     private val webChromeClient = object : WebChromeClient() {
         override fun onReceivedTitle(view: WebView?, title: String?) {
             tvTitle.text = title
-            //加上下边这句的话，标题最后会变成公众号的名称
-            //super.onReceivedTitle(view, title)
+            super.onReceivedTitle(view, title)
         }
 
         override fun onProgressChanged(view: WebView?, newProgress: Int) {

@@ -1,10 +1,14 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter
 
 import android.content.Context
+import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseObserver
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Chapters
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.ProjectType
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.RetrofitHelper
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BasePresenter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
+import com.orhanobut.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -25,11 +29,16 @@ class ProjectAndArticlePresenter(val context: Context): BasePresenter<ContractPr
                 .getProjectType()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.errorCode == 0) {
-                        mRootView.getProjectTypeSuccess(it.data)
+                .subscribe(object: BaseObserver<List<ProjectType>>(){
+                    override fun onSuccess(bean: List<ProjectType>) {
+                        mRootView.getProjectTypeSuccess(bean)
                     }
-                }
+
+                    override fun onFailed(msg: String) {
+                        mRootView.getProjectOrChaptersFailed(msg)
+                    }
+
+                })
     }
 
     /**
@@ -41,11 +50,18 @@ class ProjectAndArticlePresenter(val context: Context): BasePresenter<ContractPr
                 .getChapters()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.errorCode == 0) {
-                        mRootView.getChaptersSuccess(it.data)
+                .subscribe(object : BaseObserver<List<Chapters>>(){
+                    override fun onSuccess(bean: List<Chapters>) {
+                        mRootView.getChaptersSuccess(bean)
                     }
-                }
+
+                    override fun onFailed(msg: String) {
+                        mRootView.getProjectOrChaptersFailed(msg)
+                    }
+
+                })
+
+
     }
 
 

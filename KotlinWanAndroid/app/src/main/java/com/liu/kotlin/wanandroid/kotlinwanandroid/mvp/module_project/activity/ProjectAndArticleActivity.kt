@@ -2,6 +2,7 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
@@ -13,6 +14,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Chapters
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.ProjectType
@@ -25,6 +28,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.activity.Login
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.DeviceUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.InputSoftUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.ServerErrorCallback
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -32,6 +36,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, ContractProjectAndArticle.ChapterTypeView>(), ContractProjectAndArticle.ChapterTypeView {
+
     private val drawParent by bindView<DrawerLayout>(R.id.drawer_parent)
     private val layoutStatusBar by bindView<LinearLayout>(R.id.layout_status_bar)
     private val toolbar by bindView<Toolbar>(R.id.toolbar)
@@ -43,6 +48,11 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
     private lateinit var headerLayout: RelativeLayout
     private lateinit var tvUserName: TextView
     private lateinit var tvLoginBtn:TextView
+    private val loadService: LoadService<*> by lazy {
+        LoadSir.getDefault().register(contentViewPager){
+            getChapters()
+        }
+    }
 
     private lateinit var chapterPagerAdapter: ChapterPagerAdapter
     private lateinit var projectPagerAdapter: ProjectPagerAdapter
@@ -71,6 +81,7 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
 
     override fun init() {
         EventBus.getDefault().register(this)
+
         setSupportActionBar(toolbar)
         DeviceUtil.setStatusBar(layoutStatusBar)
         layoutStatusBar.setBackgroundResource(R.color.color_blue)
@@ -78,6 +89,7 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
         headerLayout = navigationContent.inflateHeaderView(R.layout.nav_header) as RelativeLayout
         tvUserName = headerLayout.findViewById(R.id.tv_username)
         tvLoginBtn = headerLayout.findViewById(R.id.tv_login)
+        contentViewPager.offscreenPageLimit = 2
         setViewPadding()
         setListener()
     }
@@ -105,6 +117,7 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
         }
         chapterPagerAdapter = ChapterPagerAdapter(supportFragmentManager,mChapters)
         contentViewPager.adapter = chapterPagerAdapter
+        loadService.showSuccess()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -177,7 +190,14 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
         }
         projectPagerAdapter = ProjectPagerAdapter(supportFragmentManager,mProjectTypes)
         contentViewPager.adapter = projectPagerAdapter
+        loadService.showSuccess()
         hideLoading()
+    }
+
+    override fun getProjectOrChaptersFailed(msg: String) {
+        toast(msg)
+        hideLoading()
+        loadService.showCallback(ServerErrorCallback::class.java)
     }
 
 

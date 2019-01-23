@@ -6,7 +6,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.`interface`.IView
 /**
  * author: liu
  * date: 2019/1/14 15:53
- * description
+ * 用户契约类
  */
 interface ContractUser {
 
@@ -24,11 +24,11 @@ interface ContractUser {
 
     /*------------------------注册--------------------------*/
     interface RegisterView : IView {
-
+        fun registerSuccessOrFailed(errorCode: Int, msg: String)
     }
 
     interface RegisterModel : IModel {
-
+        fun registerUser(userName: String, passWord: String, rePassword: String)
     }
 
 

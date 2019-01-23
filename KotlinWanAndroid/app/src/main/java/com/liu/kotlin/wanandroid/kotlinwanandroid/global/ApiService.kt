@@ -13,6 +13,14 @@ import retrofit2.http.*
 interface ApiService {
 
     /**
+     * 注册用户
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    fun register(@Field("username") userName: String, @Field("password") password: String
+                 , @Field("repassword") rePassword: String): Observable<BaseResModel<User>>
+
+    /**
      * 登录接口
      */
     @FormUrlEncoded
@@ -24,13 +32,13 @@ interface ApiService {
      * 获取公众号列表
      */
     @GET("wxarticle/chapters/json")
-    fun getChapters() : Observable<BaseResModel<List<Chapters>>>
+    fun getChapters(): Observable<BaseResModel<List<Chapters>>>
 
     /**
      * 获取文章列表
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    fun getArticles(@Path("id") id: Int,@Path("page") page: Int) : Observable<BaseResModel<Article>>
+    fun getArticles(@Path("id") id: Int, @Path("page") page: Int): Observable<BaseResModel<Article>>
 
     /**
      * 获取项目分类
@@ -42,11 +50,12 @@ interface ApiService {
      * 获取项目列表
      */
     @GET("project/list/{page}/json?")
-    fun getProjectList(@Path("page") page: Int,@Query("cid") typeId: Int): Observable<BaseResModel<ProjectItem>>
+    fun getProjectList(@Path("page") page: Int, @Query("cid") typeId: Int): Observable<BaseResModel<ProjectItem>>
 
     /**
      * 在公众号文章列表中进行搜索
      */
     @GET("wxarticle/list/{id}/{page}/json?")
-    fun searchArticle(@Path("id") id: Int,@Path("page") page: Int,@Query("k") keyWord: String): Observable<BaseResModel<Article>>
+    fun searchArticle(@Path("id") id: Int, @Path("page") page: Int, @Query("k") keyWord: String): Observable<BaseResModel<Article>>
+
 }

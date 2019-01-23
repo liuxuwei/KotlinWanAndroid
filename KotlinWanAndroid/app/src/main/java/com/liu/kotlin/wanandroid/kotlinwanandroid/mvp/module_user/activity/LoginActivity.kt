@@ -12,6 +12,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.ProjectAndArticleActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.contract.ContractUser
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.presenter.LoginPresenter
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.DeviceUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
@@ -28,6 +29,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>(),
     private val etUserName by bindView<EditText>(R.id.et_username)
     private val etPassWord by bindView<EditText>(R.id.et_password)
     private val llQQLogin by bindView<LinearLayout>(R.id.ll_qq_login)
+    private val layoutStatus by bindView<LinearLayout>(R.id.layout_status_bar)
     private val llWeChatLogin by bindView<LinearLayout>(R.id.ll_wechat_login)
 
     companion object {
@@ -48,20 +50,22 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>(),
     }
 
     override fun init() {
+        DeviceUtil.setStatusBar(layoutStatus)
+
         btnLogin.setOnClickListener {
             checkAndLogin()
         }
 
         tvRegister.setOnClickListener {
-            toast("注册")
+            RegisterActivity.start(getContext())
         }
 
         llQQLogin.setOnClickListener {
-            toast("该功能将稍后发布~")
+            toast("程序猿还在加班赶制中~")
         }
 
         llWeChatLogin.setOnClickListener {
-            toast("该功能将稍后发布~")
+            toast("程序猿还在加班赶制中~")
         }
     }
 

@@ -20,6 +20,8 @@ interface ContractProjectAndArticle {
         fun getProjectTypeSuccess(projectTypeList: List<ProjectType>)
 
         fun getChaptersSuccess(chapterList: List<Chapters>)
+
+        fun getProjectOrChaptersFailed(msg: String)
     }
 
     interface ChapterTypeModel : IModel {
@@ -35,6 +37,8 @@ interface ContractProjectAndArticle {
         fun getArticleListSuccess(dataList: List<Article.DatasBean>)
 
         fun searchArticleSuccess(dataList: List<Article.DatasBean>)
+
+        fun getOrSearchFailed(msg: String)
     }
 
     interface ArticleModel : IModel {

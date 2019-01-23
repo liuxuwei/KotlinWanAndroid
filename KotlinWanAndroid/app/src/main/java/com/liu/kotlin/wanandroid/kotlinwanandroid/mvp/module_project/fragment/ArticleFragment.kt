@@ -21,6 +21,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.Co
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ArticleFragPresenter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.EmptyDataCallback
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.ServerErrorCallback
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -181,5 +182,11 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAnd
         }
 
         hideLoading()
+    }
+
+    override fun getOrSearchFailed(msg: String) {
+        toast(msg)
+        hideLoading()
+        loadService.showCallback(ServerErrorCallback::class.java)
     }
 }

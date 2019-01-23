@@ -1,6 +1,8 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter
 
 import android.content.Context
+import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseObserver
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.RetrofitHelper
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BasePresenter
@@ -22,11 +24,16 @@ class ArticleFragPresenter(val context: Context) : BasePresenter<ContractProject
                 .searchArticle(chapterId,page,keyWords)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.errorCode == 0) {
-                        mRootView.searchArticleSuccess(it.data.datas!!)
+                .subscribe(object : BaseObserver<Article>(){
+                    override fun onSuccess(bean: Article) {
+                        mRootView.searchArticleSuccess(bean.datas!!)
                     }
-                }
+
+                    override fun onFailed(msg: String) {
+                        mRootView.getOrSearchFailed(msg)
+                    }
+
+                })
     }
 
     override fun getArticleList(chapterId: Int, page: Int) {
@@ -35,13 +42,17 @@ class ArticleFragPresenter(val context: Context) : BasePresenter<ContractProject
                 .getArticles(chapterId, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.errorCode == 0) {
-                        if (it.data.datas!!.isNotEmpty()) {
-                            mRootView.getArticleListSuccess(it.data.datas!!)
-                        }
+                .subscribe(object: BaseObserver<Article>(){
+                    override fun onSuccess(bean: Article) {
+                        mRootView.getArticleListSuccess(bean.datas!!)
                     }
-                }
+
+                    override fun onFailed(msg: String) {
+                        mRootView.getOrSearchFailed(msg)
+                    }
+                })
+
+
     }
 
 

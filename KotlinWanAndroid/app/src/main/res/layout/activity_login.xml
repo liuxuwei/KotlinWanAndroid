@@ -6,6 +6,8 @@
     android:background="#fff"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_common" />
+
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
@@ -66,7 +68,7 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/qb_px_44"
+        android:layout_height="@dimen/qb_px_40"
         android:layout_marginLeft="@dimen/qb_px_30"
         android:layout_marginRight="@dimen/qb_px_30"
         android:layout_marginTop="@dimen/qb_px_30"
