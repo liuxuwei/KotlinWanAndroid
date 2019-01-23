@@ -18,33 +18,35 @@
             android:id="@+id/iv_back"
             android:layout_width="@dimen/qb_px_30"
             android:layout_height="match_parent"
-            android:padding="@dimen/qb_px_3"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/qb_px_10"
-            android:src="@drawable/icon_back"/>
+            android:padding="@dimen/qb_px_3"
+            android:src="@drawable/icon_back" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="文章详情"
+            android:layout_marginLeft="@dimen/qb_px_8"
+            android:layout_marginRight="@dimen/qb_px_8"
+            android:layout_toRightOf="@id/iv_back"
+            android:singleLine="true"
             android:textColor="#fff"
-            android:textSize="@dimen/qb_px_15"/>
+            android:textSize="@dimen/qb_px_15" />
     </RelativeLayout>
 
     <ProgressBar
-        android:visibility="gone"
         android:id="@+id/pb_load_progress"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/qb_px_5" />
+        android:layout_height="@dimen/qb_px_5"
+        android:visibility="gone" />
 
     <WebView
         android:id="@+id/wv_details"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

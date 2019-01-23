@@ -20,15 +20,32 @@
     <style name="style_login_textView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/qb_px_20</item>
+        <item name="android:textSize">@dimen/qb_px_18</item>
         <item name="android:textColor">#333</item>
     </style>
 
     <style name="style_login_editText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@null</item>
+        <item name="android:background">@drawable/bg_search_edittext</item>
         <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="linear_about_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/qb_px_15</item>
+        <item name="android:layout_marginRight">@dimen/qb_px_15</item>
+    </style>
+
+    <style name="text_emailOrNum_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/qb_px_8</item>
+        <item name="android:textSize">@dimen/qb_px_15</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/color_blue</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
 </resources>

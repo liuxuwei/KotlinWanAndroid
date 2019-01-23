@@ -43,6 +43,9 @@ dependencies {
     implementation rootProject.ext.dependencies["logger"]
     implementation rootProject.ext.dependencies["loadsir"]
     implementation rootProject.ext.dependencies["glide"]
+    implementation rootProject.ext.dependencies["smartlayout"]
+    implementation rootProject.ext.dependencies["smartheader"]
+    implementation rootProject.ext.dependencies["circleImage"]
 
     implementation "org.jetbrains.anko:anko:$anko_version"
 

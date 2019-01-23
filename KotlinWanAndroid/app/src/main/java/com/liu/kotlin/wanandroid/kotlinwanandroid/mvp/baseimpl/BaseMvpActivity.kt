@@ -15,11 +15,6 @@ abstract class BaseMvpActivity<P : IPresenter<V>, V : IView> : BaseActivity(), I
     protected lateinit var mPresenter: P
 
     override fun initView() {
-        if (bindEventBus()) {
-            if (EventBus.getDefault().isRegistered(this)) {
-                EventBus.getDefault().register(this)
-            }
-        }
         mPresenter = getPresenter()
         if (mPresenter != null) {
             mPresenter.attachView(this as V)
@@ -30,10 +25,6 @@ abstract class BaseMvpActivity<P : IPresenter<V>, V : IView> : BaseActivity(), I
     abstract fun init()
 
     abstract fun getPresenter(): P
-
-    protected fun bindEventBus(): Boolean {
-        return false
-    }
 
     abstract override fun initData()
 
@@ -48,4 +39,5 @@ abstract class BaseMvpActivity<P : IPresenter<V>, V : IView> : BaseActivity(), I
     override fun finishActivity() {
         finish()
     }
+
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
@@ -19,15 +18,18 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Chapters
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.ProjectType
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.baseimpl.BaseMvpActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ChapterPagerAdapter
-import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ProjectAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ProjectPagerAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ProjectAndArticlePresenter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.activity.LoginActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.DeviceUtil
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.InputSoftUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
-import com.orhanobut.logger.Logger
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, ContractProjectAndArticle.ChapterTypeView>(), ContractProjectAndArticle.ChapterTypeView {
     private val drawParent by bindView<DrawerLayout>(R.id.drawer_parent)
@@ -46,8 +48,12 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
     private lateinit var projectPagerAdapter: ProjectPagerAdapter
     private var mChapters = mutableListOf<Chapters>()
     private var mProjectTypes = mutableListOf<ProjectType>()
+    private var loginState = NOT_LOGIN_STATE
 
     companion object {
+        const val LOGIN_STATE = 1
+        const val NOT_LOGIN_STATE = 2
+
         fun start(context: Context) {
             val intent = Intent()
             intent.setClass(context, ProjectAndArticleActivity::class.java)
@@ -62,7 +68,9 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
         return ProjectAndArticlePresenter(getContext())
     }
 
+
     override fun init() {
+        EventBus.getDefault().register(this)
         setSupportActionBar(toolbar)
         DeviceUtil.setStatusBar(layoutStatusBar)
         layoutStatusBar.setBackgroundResource(R.color.color_blue)
@@ -99,21 +107,46 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
         contentViewPager.adapter = chapterPagerAdapter
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getUserName(name: String) {
+        tvUserName.text = "Hi:$name"
+        tvLoginBtn.text = "退出登录"
+        loginState = LOGIN_STATE
+    }
 
     private fun setListener() {
+
+        contentViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(p0: Int) {
+
+            }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                InputSoftUtil.hideInputKeyBoard(this@ProjectAndArticleActivity)
+            }
+
+            override fun onPageSelected(p0: Int) {
+
+            }
+
+        })
+
         ivMenu.setOnClickListener {
             drawParent.openDrawer(Gravity.START)
         }
 
         tvLoginBtn.setOnClickListener {
-            startActivity<LoginActivity>()
+            if (loginState == NOT_LOGIN_STATE) {
+                startActivity<LoginActivity>()
+            } else {
+                // todo 退出登录
+            }
         }
 
         navigationContent.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.item_article -> {
-                    it.isChecked =true
+                    it.isChecked = true
                     tvTitle.text = "公众号文章"
                     getChapters()
                 }
@@ -123,7 +156,7 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
                     getProjectList()
                 }
                 R.id.item_about -> {
-                    //startActivity<>()
+                    startActivity<AboutMeActivity>()
                 }
             }
             drawParent.closeDrawers()
@@ -157,6 +190,11 @@ class ProjectAndArticleActivity : BaseMvpActivity<ProjectAndArticlePresenter, Co
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
 }

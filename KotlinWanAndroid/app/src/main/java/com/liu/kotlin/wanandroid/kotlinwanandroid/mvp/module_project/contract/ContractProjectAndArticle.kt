@@ -33,10 +33,14 @@ interface ContractProjectAndArticle {
 
     interface ArticleView : IView {
         fun getArticleListSuccess(dataList: List<Article.DatasBean>)
+
+        fun searchArticleSuccess(dataList: List<Article.DatasBean>)
     }
 
     interface ArticleModel : IModel {
-        fun getArticleList(chapterId: Int,page: Int)
+        fun getArticleList(chapterId: Int, page: Int)
+
+        fun searchArticle(chapterId: Int, page: Int, keyWords: String)
     }
 
     /*----------------------项目------------------*/
@@ -45,7 +49,7 @@ interface ContractProjectAndArticle {
     }
 
     interface ProjectModel : IModel {
-        fun getProjectList(typeId: Int,page: Int)
+        fun getProjectList(typeId: Int, page: Int)
     }
 
     /*-----------------------详情---------------------*/
@@ -56,7 +60,6 @@ interface ContractProjectAndArticle {
     interface DetailsModel : IModel {
 
     }
-
 
 
 }

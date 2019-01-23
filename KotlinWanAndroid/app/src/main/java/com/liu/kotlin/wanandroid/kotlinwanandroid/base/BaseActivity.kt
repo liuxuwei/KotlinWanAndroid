@@ -5,10 +5,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
 
 /**
@@ -16,10 +20,10 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
  * date: 2019/1/14 11:28
  * BaseActivity
  */
-abstract class BaseActivity: AppCompatActivity(){
+abstract class BaseActivity : AppCompatActivity() {
 
     protected lateinit var loadingDialog: SweetAlertDialog
-    private lateinit var context:Context
+    private lateinit var context: Context
 
     abstract fun getContentLayoutId(): Int
 
@@ -47,7 +51,7 @@ abstract class BaseActivity: AppCompatActivity(){
     }
 
     private fun initDialog() {
-        loadingDialog = SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE)
+        loadingDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         loadingDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
         loadingDialog.titleText = "loading"
         loadingDialog.setCancelable(true)
@@ -69,7 +73,7 @@ abstract class BaseActivity: AppCompatActivity(){
             super.startActivityForResult(intent, requestCode, options)
         }
     }
-    
+
     private var mActivityJumpTag: String? = null
     private var mActivityJumpTime: Long = 0
 
@@ -102,7 +106,5 @@ abstract class BaseActivity: AppCompatActivity(){
         mActivityJumpTime = SystemClock.uptimeMillis()
         return result
     }
-
-
 
 }

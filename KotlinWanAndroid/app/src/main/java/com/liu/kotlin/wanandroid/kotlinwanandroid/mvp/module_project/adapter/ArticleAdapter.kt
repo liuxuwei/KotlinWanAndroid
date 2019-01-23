@@ -29,7 +29,7 @@ class ArticleAdapter(private val context: Context, var articleList: List<Article
         holder.tvPublishTime.text = TimeUtil.stampToStrTime(articleList[position].publishTime)
         holder.itemView.setOnClickListener {
             if (mListener != null) {
-                mListener!!.onItemClick(position,articleList[position].link!!)
+                mListener!!.onItemClick(position, articleList[position].link!!)
             }
         }
     }
@@ -41,6 +41,11 @@ class ArticleAdapter(private val context: Context, var articleList: List<Article
     }
 
     fun refreshData(temList: List<Article.DatasBean>) {
+        articleList = temList
+        notifyDataSetChanged()
+    }
+
+    fun loadMoreData(temList: List<Article.DatasBean>) {
         (articleList as MutableList).addAll(temList)
         notifyDataSetChanged()
     }

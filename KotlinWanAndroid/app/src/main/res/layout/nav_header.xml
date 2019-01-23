@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Hi: piziliu"
+        android:text="未登录"
         android:lines="2"
         android:textColor="#133"
         android:textSize="@dimen/qb_px_20" />

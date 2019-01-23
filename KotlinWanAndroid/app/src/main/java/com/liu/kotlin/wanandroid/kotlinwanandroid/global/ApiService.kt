@@ -43,4 +43,10 @@ interface ApiService {
      */
     @GET("project/list/{page}/json?")
     fun getProjectList(@Path("page") page: Int,@Query("cid") typeId: Int): Observable<BaseResModel<ProjectItem>>
+
+    /**
+     * 在公众号文章列表中进行搜索
+     */
+    @GET("wxarticle/list/{id}/{page}/json?")
+    fun searchArticle(@Path("id") id: Int,@Path("page") page: Int,@Query("k") keyWord: String): Observable<BaseResModel<Article>>
 }

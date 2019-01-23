@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class ProjectAndArticlePresenter(val context: Context): BasePresenter<ContractProjectAndArticle.ChapterTypeView>(),ContractProjectAndArticle.ChapterTypeModel {
 
+
     /**
      * 获取项目分类
      */

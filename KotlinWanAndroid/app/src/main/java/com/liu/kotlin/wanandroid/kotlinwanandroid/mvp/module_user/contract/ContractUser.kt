@@ -14,6 +14,8 @@ interface ContractUser {
     interface LoginView : IView {
 
         fun showLoginSuccess(msg: String)
+
+        fun showLoginFailed(msg: String)
     }
 
     interface LoginModel : IModel {
@@ -21,7 +23,7 @@ interface ContractUser {
     }
 
     /*------------------------注册--------------------------*/
-    interface RegisterView : IView{
+    interface RegisterView : IView {
 
     }
 

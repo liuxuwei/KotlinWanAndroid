@@ -4,6 +4,10 @@ import android.util.Log
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.RetrofitHelper
+import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.AboutMeActivity
+import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.DetailsActivity
+import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.ProjectAndArticleActivity
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.InputSoftUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.TimeUtil
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -17,6 +21,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
@@ -33,6 +38,10 @@ import java.util.concurrent.TimeUnit
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class, maxSdk = 23)
 class ExampleUnitTest {
+
+    private val mActivity: AboutMeActivity by lazy {
+        Robolectric.setupActivity(AboutMeActivity::class.java)
+    }
 
     @Rule
     @JvmField
@@ -77,5 +86,11 @@ class ExampleUnitTest {
     @Test
     fun timeUtilTest() {
         Logger.d(TimeUtil.stampToStrTime(1547395200000))       //2019-01-14
+    }
+
+    @Test
+    fun inputSoftUtilTest() {
+        InputSoftUtil.showOrHideKeyBord(mActivity)
+        assertEquals(true,InputSoftUtil.isKeyBordShowing(mActivity))
     }
 }

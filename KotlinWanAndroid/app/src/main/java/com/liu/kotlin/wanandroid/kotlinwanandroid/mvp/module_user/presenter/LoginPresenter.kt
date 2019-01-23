@@ -1,6 +1,7 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.presenter
 
 import android.content.Context
+import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseObserver
 import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseResModel
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
@@ -28,10 +29,16 @@ class LoginPresenter(val context: Context) : BasePresenter<ContractUser.LoginVie
                 .login(userName, passWord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    Logger.d(it.data.username)
-                    mRootView.showLoginSuccess(it.data.username!!)
-                }
+                .subscribe(object : BaseObserver<User>(){
+                    override fun onSuccess(bean: User) {
+                        mRootView.showLoginSuccess(bean.username!!)
+                    }
+
+                    override fun onFailed(msg: String) {
+                        mRootView.showLoginFailed(msg)
+                        Logger.d("服务器异常： $msg")
+                    }
+                })
     }
 
 

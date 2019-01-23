@@ -6,6 +6,8 @@
 
     <RelativeLayout
         android:id="@+id/rl_search"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/qb_px_10">
@@ -36,18 +38,24 @@
             android:textSize="@dimen/qb_px_14" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcy_article"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_article_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_search"
-        android:layout_marginTop="@dimen/qb_px_10"
-        android:layout_marginLeft="@dimen/qb_px_5"
-        android:layout_marginRight="@dimen/qb_px_5"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_below="@id/rl_search">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcy_article"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/qb_px_5"
+            android:layout_marginRight="@dimen/qb_px_5"
+            android:layout_marginTop="@dimen/qb_px_10"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+        </android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 </RelativeLayout>

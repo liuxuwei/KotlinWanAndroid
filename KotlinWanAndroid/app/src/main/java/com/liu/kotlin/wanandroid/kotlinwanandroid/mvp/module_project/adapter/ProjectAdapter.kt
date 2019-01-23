@@ -41,6 +41,11 @@ class ProjectAdapter(private val context: Context, private var mProjectList: Lis
     }
 
     fun refreshData(temList: List<ProjectItem.DatasBean>) {
+        mProjectList = temList
+        notifyDataSetChanged()
+    }
+
+    fun loadMoreData(temList: List<ProjectItem.DatasBean>) {
         (mProjectList as MutableList).addAll(temList)
         notifyDataSetChanged()
     }

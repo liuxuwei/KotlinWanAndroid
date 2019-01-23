@@ -3,6 +3,7 @@
     <group android:id="@+id/article"
         android:checkableBehavior="single">
         <item
+            android:checked="true"
             android:id="@+id/item_article"
             android:icon="@drawable/icon_book"
             android:title="公众号文章" />

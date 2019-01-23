@@ -24,8 +24,8 @@ import org.jetbrains.anko.toast
 class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArticle.DetailsView>(), ContractProjectAndArticle.DetailsView {
     private var wvDetails: WebView? = null
     private lateinit var detailsUrl: String
-    private lateinit var loadService: LoadService<*>
     private val ivBack by bindView<ImageView>(R.id.iv_back)
+    private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val pbProgress by bindView<ProgressBar>(R.id.pb_load_progress)
     private val layoutStatus by bindView<LinearLayout>(R.id.layout_status_bar)
 
@@ -54,9 +54,6 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
         wvDetails = findViewById(R.id.wv_details)
         wvDetails!!.loadUrl(detailsUrl)
 
-        loadService = LoadSir.getDefault().register(wvDetails) {
-            wvDetails!!.loadUrl(detailsUrl)
-        }
         initWebView()
         setListener()
     }
@@ -67,8 +64,10 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
         val webSettings = wvDetails!!.settings
         webSettings.javaScriptEnabled = true
         // todo ZoomButtonsController 报错  放大缩小按钮  明天解决
-//        webSettings.setSupportZoom(true)
+        //webSettings.setSupportZoom(true)
         webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
+        //提高网页加载速度，暂时阻塞图片加载，网页加载好了以后再加载图片
+        webSettings.blockNetworkImage = true
         //webSettings.builtInZoomControls = true
     }
 
@@ -86,10 +85,11 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
     private val webViewClient = object : WebViewClient() {
         override fun onPageFinished(view: WebView?, url: String?) {
             pbProgress.visibility = View.GONE
-            loadService.showSuccess()
+            view?.settings?.blockNetworkImage = false
         }
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            tvTitle.text = "加载中..."
             pbProgress.visibility = View.VISIBLE
         }
 
@@ -105,7 +105,9 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
     //WebChromeClient主要辅助WebView处理Javascript的对话框、网站图标、网站title、加载进度等
     private val webChromeClient = object : WebChromeClient() {
         override fun onReceivedTitle(view: WebView?, title: String?) {
-            super.onReceivedTitle(view, title)
+            tvTitle.text = title
+            //加上下边这句的话，标题最后会变成公众号的名称
+            //super.onReceivedTitle(view, title)
         }
 
         override fun onProgressChanged(view: WebView?, newProgress: Int) {

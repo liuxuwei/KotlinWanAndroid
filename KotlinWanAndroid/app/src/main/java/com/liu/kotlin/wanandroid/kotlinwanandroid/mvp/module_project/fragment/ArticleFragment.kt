@@ -19,7 +19,13 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.De
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ArticleAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ArticleFragPresenter
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.EmptyDataCallback
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
+import com.scwang.smartrefresh.header.DeliveryHeader
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -28,15 +34,20 @@ import org.jetbrains.anko.support.v4.toast
  * 文章列表Fragment
  */
 class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAndArticle.ArticleView>(), ContractProjectAndArticle.ArticleView {
+
+    private var page = 1
+    private var chapterId = 0
+    private var mPosition = 0
+
     private lateinit var rcyArticle: RecyclerView
     private lateinit var tvSearchBtn: TextView
     private lateinit var etSearchView: EditText
-    private var articleList: MutableList<Article.DatasBean> = mutableListOf()
-    private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var refreshLayout: SmartRefreshLayout
     private lateinit var loadService: LoadService<*>
-    private var chapterId = 0
-    private var mPosition = 0
-    private var page = 1
+
+    private var isLoadMore = false
+    private lateinit var articleAdapter: ArticleAdapter
+    private var articleList: MutableList<Article.DatasBean> = mutableListOf()
 
     companion object {
         fun newInstance(position: Int, chapterId: Int): ArticleFragment {
@@ -58,7 +69,7 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAnd
             chapterId = arguments!!.getInt("id")
             mPosition = arguments!!.getInt("position")
         }
-        loadService = LoadSir.getDefault().register(rcyArticle) {
+        loadService = LoadSir.getDefault().register(refreshLayout) {
             loadService.showCallback(LoadingCallback::class.java)
             getArticleList()
         }
@@ -69,48 +80,106 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAnd
         tvSearchBtn = view.findViewById(R.id.tv_btn_search)
         etSearchView = view.findViewById(R.id.et_search)
         rcyArticle = view.findViewById(R.id.rcy_article)
+        refreshLayout = view.findViewById(R.id.smart_article_refresh)
         articleAdapter = ArticleAdapter(view.context, articleList)
         rcyArticle.layoutManager = LinearLayoutManager(view.context)
         rcyArticle.adapter = articleAdapter
+        initRefreshLayout()
         setListener()
         return view
     }
 
+    private fun initRefreshLayout() {
+        refreshLayout.setRefreshHeader(DeliveryHeader(activity as Context))
+        refreshLayout.setRefreshFooter(BallPulseFooter(activity as Context))
+        refreshLayout.setDragRate(0.6f)
+        refreshLayout.setHeaderTriggerRate(0.4f)
+        refreshLayout.setReboundDuration(1000)
+        refreshLayout.setEnableAutoLoadMore(false)
+        refreshLayout.setEnableLoadMore(true)
+
+        refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+            override fun onLoadMore(refreshLayout: RefreshLayout) {
+                isLoadMore = true
+                page++
+                getArticleList()
+            }
+
+            override fun onRefresh(refreshLayout: RefreshLayout) {
+                page = 1
+                getArticleList()
+            }
+
+        })
+    }
+
     private fun setListener() {
 
-        articleAdapter.setOnItemClickListener(object : ArticleAdapter.OnItemClickListener{
+        articleAdapter.setOnItemClickListener(object : ArticleAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, projectUrl: String) {
-                DetailsActivity.start(activity as Context,projectUrl)
+                DetailsActivity.start(activity as Context, projectUrl)
             }
 
         })
 
         tvSearchBtn.setOnClickListener {
-            toast("搜索")
-            showLoading()
+            searchArticle()
         }
         etSearchView.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                //todo search article in current chapter
+                searchArticle()
             }
             false
         }
     }
 
+    private fun searchArticle() {
+        if (etSearchView.text.toString().isEmpty() || etSearchView.text.toString().isBlank()) {
+            toast("请输入要搜索的内容")
+        } else {
+            mPresenter.searchArticle(chapterId, page, etSearchView.text.toString())
+            loadService.showCallback(LoadingCallback::class.java)
+        }
+    }
+
+    override fun searchArticleSuccess(dataList: List<Article.DatasBean>) {
+        if (dataList.isEmpty()) {
+            loadService.showCallback(EmptyDataCallback::class.java)
+        } else {
+            loadService.showSuccess()
+            articleAdapter.refreshData(dataList)
+        }
+    }
 
     override fun onLazyLoad() {
         getArticleList()
     }
 
     private fun getArticleList() {
-        loadService.showCallback(LoadingCallback::class.java)
+        if (!isLoadMore) {
+            loadService.showCallback(LoadingCallback::class.java)
+        }
         mPresenter.getArticleList(chapterId, page)
     }
 
     override fun getArticleListSuccess(dataList: List<Article.DatasBean>) {
         articleList = dataList as MutableList
-        articleAdapter.refreshData(articleList)
-        loadService.showSuccess()
+        if (isLoadMore && articleList.isEmpty()) {
+            toast("没有更多数据啦！")
+            if (page > 1) {
+                page--
+            }
+        }
+        if (isLoadMore) {
+            articleAdapter.loadMoreData(articleList)
+            refreshLayout.finishLoadMore()
+            isLoadMore = false
+        } else {
+            articleAdapter.refreshData(articleList)
+            refreshLayout.finishRefresh()
+            loadService.showSuccess()
+        }
+
         hideLoading()
     }
 }
