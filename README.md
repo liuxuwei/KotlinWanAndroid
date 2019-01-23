@@ -25,7 +25,7 @@ Kotlin + Mvp + RxJava + Retrofit 玩安卓客户端
    - [SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
    - [CircleImage](https://github.com/hdodenhof/CircleImageView)
    
-### 项目中遇到的问题，见另一个respository,
+### 项目中遇到的问题，见另一个respository
 
   - [WorkSummarize](https://github.com/liuxuwei/workSummarize)
     
