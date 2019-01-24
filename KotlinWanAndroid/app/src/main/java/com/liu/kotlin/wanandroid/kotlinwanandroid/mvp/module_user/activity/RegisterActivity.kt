@@ -14,7 +14,7 @@ import org.jetbrains.anko.toast
 /**
  * author: liu
  * date: 2019/1/15 8:12
- * description
+ * 注册页
  */
 class RegisterActivity : BaseMvpActivity<RegisterPresenter, ContractUser.RegisterView>(), ContractUser.RegisterView {
 

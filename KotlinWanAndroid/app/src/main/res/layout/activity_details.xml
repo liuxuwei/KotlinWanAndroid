@@ -33,7 +33,7 @@
             android:layout_toRightOf="@id/iv_back"
             android:singleLine="true"
             android:textColor="#fff"
-            android:textSize="@dimen/qb_px_15" />
+            android:textSize="@dimen/qb_px_17" />
     </RelativeLayout>
 
     <ProgressBar

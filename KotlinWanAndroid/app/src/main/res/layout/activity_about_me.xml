@@ -30,7 +30,7 @@
             android:layout_centerInParent="true"
             android:text="关于我"
             android:textColor="#fff"
-            android:textSize="@dimen/qb_px_15" />
+            android:textSize="@dimen/qb_px_17" />
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -60,7 +60,7 @@
 
     <LinearLayout
         style="@style/linear_about_style"
-        android:layout_marginTop="@dimen/qb_px_30">
+        android:layout_marginTop="@dimen/qb_px_20">
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
 
     <LinearLayout
         style="@style/linear_about_style"
-        android:layout_marginTop="@dimen/qb_px_30">
+        android:layout_marginTop="@dimen/qb_px_20">
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,6 +104,6 @@
         android:text="\t\t个人说明：刚刚参加工作的菜鸟一枚,这个项目是最近学习Kotlin、RxJava2、Retrofit2的一个练手项目，项目已上传到Github。\n\t\t各位看官大佬如果有好的建议可以随时联系我，以上的链接均可点击。\n\t\t最后，感谢鸿洋大神提供的Api。"
         android:textColor="#333"
         android:textSize="@dimen/qb_px_16"
-        android:textStyle="italic" />
+        android:textStyle="normal" />
 
 </LinearLayout>

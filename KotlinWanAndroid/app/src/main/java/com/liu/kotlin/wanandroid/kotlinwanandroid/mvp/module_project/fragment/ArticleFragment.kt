@@ -19,6 +19,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.De
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ArticleAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ArticleFragPresenter
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.MyItemDecoration
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.EmptyDataCallback
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.ServerErrorCallback
@@ -83,6 +84,7 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAnd
         rcyArticle = view.findViewById(R.id.rcy_article)
         refreshLayout = view.findViewById(R.id.smart_article_refresh)
         articleAdapter = ArticleAdapter(view.context, articleList)
+        rcyArticle.addItemDecoration(MyItemDecoration())
         rcyArticle.layoutManager = LinearLayoutManager(view.context)
         rcyArticle.adapter = articleAdapter
         initRefreshLayout()

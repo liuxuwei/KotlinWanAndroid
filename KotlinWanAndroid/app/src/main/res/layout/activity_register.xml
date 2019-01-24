@@ -65,8 +65,8 @@
         android:layout_height="@dimen/qb_px_40"
         android:layout_marginLeft="@dimen/qb_px_30"
         android:layout_marginRight="@dimen/qb_px_30"
-        android:layout_marginTop="@dimen/qb_px_30"
-        android:background="@drawable/bg_search_edittext"
+        android:layout_marginTop="@dimen/qb_px_50"
+        android:background="@drawable/bg_login_btn"
         android:text="注册"
         android:textColor="#333"
         android:textSize="@dimen/qb_px_18" />

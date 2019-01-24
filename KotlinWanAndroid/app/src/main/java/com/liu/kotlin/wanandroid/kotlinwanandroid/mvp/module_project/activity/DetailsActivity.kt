@@ -124,11 +124,12 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (wvDetails!!.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {
+            Logger.d("回退")
             wvDetails!!.goBack()
         } else {
             onBackPressed()
         }
-        return super.onKeyDown(keyCode, event)
+        return false
     }
 
     override fun onDestroy() {

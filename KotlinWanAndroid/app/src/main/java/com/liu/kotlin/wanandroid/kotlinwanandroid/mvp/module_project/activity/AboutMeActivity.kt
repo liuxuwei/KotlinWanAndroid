@@ -7,8 +7,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
 import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseActivity
+import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseObserver
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
+import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
+import com.liu.kotlin.wanandroid.kotlinwanandroid.global.RetrofitHelper
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.DeviceUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
+import com.orhanobut.logger.Logger
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.toast
 
 class AboutMeActivity : BaseActivity() {

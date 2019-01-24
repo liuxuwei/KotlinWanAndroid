@@ -16,6 +16,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.De
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.adapter.ProjectAdapter
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.contract.ContractProjectAndArticle
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.presenter.ProjectFragPresenter
+import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.MyItemDecoration
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.loadsir.LoadingCallback
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -86,6 +87,7 @@ class ProjectFragment : BaseMvpFragment<ProjectFragPresenter, ContractProjectAnd
                 DetailsActivity.start(context!!, projectUrl)
             }
         })
+        rcyProject.addItemDecoration(MyItemDecoration())
         rcyProject.layoutManager = LinearLayoutManager(activity)
         rcyProject.adapter = projectAdapter
     }

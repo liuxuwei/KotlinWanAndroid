@@ -40,7 +40,7 @@
                     android:layout_centerInParent="true"
                     android:text="公众号文章"
                     android:textColor="#fff"
-                    android:textSize="@dimen/qb_px_15" />
+                    android:textSize="@dimen/qb_px_17" />
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -54,7 +54,8 @@
             android:overScrollMode="never"
             app:tabIndicatorColor="#FFAF23"
             app:tabMode="scrollable"
-            app:tabTextColor="#fff">
+            app:tabTextColor="#fff"
+            app:tabTextAppearance="@style/style_tablayout_text">
 
         </android.support.design.widget.TabLayout>
 
@@ -78,6 +79,8 @@
         android:layout_marginRight="@dimen/qb_px_30"
         android:background="#ffeeeeee"
         app:itemIconTint="@color/color_blue"
-        app:menu="@menu/draw_menu"></android.support.design.widget.NavigationView>
+        app:menu="@menu/draw_menu"
+        app:itemTextAppearance="@style/style_tablayout_text"
+        app:itemTextColor="#333"></android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

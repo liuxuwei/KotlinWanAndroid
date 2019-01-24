@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * author: liu
  * date: 2019/1/14 16:18
- * description
+ * Retrofit管理类
  */
 class RetrofitHelper {
     private var mRetrofit: Retrofit
@@ -39,6 +39,8 @@ class RetrofitHelper {
         val builder = OkHttpClient.Builder()
                 .connectTimeout(10,TimeUnit.SECONDS)
                 .readTimeout(10,TimeUnit.SECONDS)
+                .addInterceptor(AddCookiesInterceptor(App.getInstance().applicationContext))
+                .addInterceptor(SaveCookiesInterceptor(App.getInstance().applicationContext))
 
 //        if (BuildConfig.DEBUG) {
 //            val interceptor = HttpLoggingInterceptor()

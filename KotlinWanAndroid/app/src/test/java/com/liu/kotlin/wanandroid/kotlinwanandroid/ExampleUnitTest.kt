@@ -1,8 +1,12 @@
 package com.liu.kotlin.wanandroid.kotlinwanandroid
 
 import android.util.Log
+import com.liu.kotlin.wanandroid.kotlinwanandroid.base.BaseObserver
+import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.Article
 import com.liu.kotlin.wanandroid.kotlinwanandroid.bean.User
+import com.liu.kotlin.wanandroid.kotlinwanandroid.global.AddCookiesInterceptor
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.ApiService
+import com.liu.kotlin.wanandroid.kotlinwanandroid.global.App
 import com.liu.kotlin.wanandroid.kotlinwanandroid.global.RetrofitHelper
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.AboutMeActivity
 import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity.DetailsActivity
@@ -38,10 +42,6 @@ import java.util.concurrent.TimeUnit
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class, maxSdk = 23)
 class ExampleUnitTest {
-
-    private val mActivity: AboutMeActivity by lazy {
-        Robolectric.setupActivity(AboutMeActivity::class.java)
-    }
 
     @Rule
     @JvmField
@@ -88,9 +88,46 @@ class ExampleUnitTest {
         Logger.d(TimeUtil.stampToStrTime(1547395200000))       //2019-01-14
     }
 
+
     @Test
-    fun inputSoftUtilTest() {
-        InputSoftUtil.showOrHideKeyBord(mActivity)
-        assertEquals(true,InputSoftUtil.isKeyBordShowing(mActivity))
+    fun headerTest() {
+
+        RetrofitHelper.getInstance()
+                .create(ApiService::class.java)
+                .login("piziliu","zjk123456")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+
+                }
+
+        val builder = OkHttpClient.Builder()
+                .addInterceptor(AddCookiesInterceptor(App.getInstance().applicationContext))
+
+        val client = builder.build()
+
+        val request =  Request.Builder()
+                .url("http://www.wanandroid.com/lg/collect/list/0/json")
+                .build()
+
+        val call = client.newCall(request)
+
+        Logger.d(call.execute().body()?.string())
+
+
+//        RetrofitHelper.getInstance()
+//                .create(ApiService::class.java)
+//                .getCollectArticleList()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(object : BaseObserver<Article>(){
+//                    override fun onSuccess(bean: Article) {
+//                        Logger.d(bean.toString())
+//                    }
+//
+//                    override fun onFailed(msg: String) {
+//                        Logger.d(msg)
+//                    }
+//                })
     }
 }

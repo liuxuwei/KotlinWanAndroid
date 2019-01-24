@@ -2,6 +2,9 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.widget.Button
 import android.widget.EditText
@@ -15,6 +18,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_user.presenter.Logi
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.DeviceUtil
 import com.liu.kotlin.wanandroid.kotlinwanandroid.utils.bindView
 import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.textColor
 import org.jetbrains.anko.toast
 
 /**
@@ -67,6 +71,20 @@ class LoginActivity : BaseMvpActivity<LoginPresenter, ContractUser.LoginView>(),
         llWeChatLogin.setOnClickListener {
             toast("程序猿还在加班赶制中~")
         }
+
+        etUserName.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
     }
 
     private fun checkAndLogin() {

@@ -58,4 +58,12 @@ interface ApiService {
     @GET("wxarticle/list/{id}/{page}/json?")
     fun searchArticle(@Path("id") id: Int, @Path("page") page: Int, @Query("k") keyWord: String): Observable<BaseResModel<Article>>
 
+    /**
+     * 收藏文章列表   暂时还没用到
+     */
+    @Deprecated("doesn't use in this version")
+    @GET ("lg/collect/list/0/json")
+    fun getCollectArticleList() : Observable<BaseResModel<Article>>
+
+
 }

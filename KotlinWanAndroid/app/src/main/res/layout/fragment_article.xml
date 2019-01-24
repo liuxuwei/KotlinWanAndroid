@@ -10,6 +10,7 @@
         android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/qb_px_4"
         android:layout_marginTop="@dimen/qb_px_10">
 
         <TextView
@@ -35,7 +36,7 @@
             android:hint="在此公众号中搜索文章"
             android:singleLine="true"
             android:textColorHint="#999999"
-            android:textSize="@dimen/qb_px_14" />
+            android:textSize="@dimen/qb_px_15" />
     </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -50,7 +51,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/qb_px_5"
             android:layout_marginRight="@dimen/qb_px_5"
-            android:layout_marginTop="@dimen/qb_px_10"
             android:overScrollMode="never"
             android:scrollbars="none">
 
