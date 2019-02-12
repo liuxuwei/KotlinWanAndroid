@@ -2,7 +2,6 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager

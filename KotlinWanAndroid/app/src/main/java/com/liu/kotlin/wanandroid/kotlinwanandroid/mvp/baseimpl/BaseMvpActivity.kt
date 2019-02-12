@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.EventBus
 /**
  * author: liu
  * date: 2019/1/14 15:10
- * description
+ * BaseMvpActivity
  */
 abstract class BaseMvpActivity<P : IPresenter<V>, V : IView> : BaseActivity(), IView {
     protected lateinit var mPresenter: P

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.view.KeyEvent
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.*
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -63,12 +64,11 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
         wvDetails!!.webChromeClient = webChromeClient
         val webSettings = wvDetails!!.settings
         webSettings.javaScriptEnabled = true
-        // todo ZoomButtonsController 报错  放大缩小按钮  明天解决
-        //webSettings.setSupportZoom(true)
+        webSettings.setSupportZoom(true)
         webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
         //提高网页加载速度，暂时阻塞图片加载，网页加载好了以后再加载图片
         webSettings.blockNetworkImage = true
-        //webSettings.builtInZoomControls = true
+        webSettings.builtInZoomControls = true
     }
 
     private fun setListener() {
@@ -124,12 +124,12 @@ class DetailsActivity : BaseMvpActivity<DetailsPresenter, ContractProjectAndArti
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (wvDetails!!.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {
-            Logger.d("回退")
             wvDetails!!.goBack()
+            return true
         } else {
             onBackPressed()
         }
-        return false
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onDestroy() {

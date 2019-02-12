@@ -2,6 +2,8 @@ package com.liu.kotlin.wanandroid.kotlinwanandroid.mvp.module_project.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Message
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.liu.kotlin.wanandroid.kotlinwanandroid.R
@@ -65,6 +68,7 @@ class ArticleFragment : BaseMvpFragment<ArticleFragPresenter, ContractProjectAnd
     override fun getPresenter(): ArticleFragPresenter {
         return ArticleFragPresenter(activity as Context)
     }
+
 
     override fun init() {
         if (arguments != null) {

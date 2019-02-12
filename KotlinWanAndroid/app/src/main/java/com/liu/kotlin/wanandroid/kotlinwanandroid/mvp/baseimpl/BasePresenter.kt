@@ -6,7 +6,7 @@ import com.liu.kotlin.wanandroid.kotlinwanandroid.`interface`.IView
 /**
  * author: liu
  * date: 2019/1/14 15:41
- * description
+ * BasePresenter
  */
 open class BasePresenter<V: IView>: IPresenter<V> {
     protected lateinit var mRootView: V
